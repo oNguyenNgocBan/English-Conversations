@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">English-Conversations</string>
+    <string name="data_local_not_exist">Data local not exist</string>
 </resources>
