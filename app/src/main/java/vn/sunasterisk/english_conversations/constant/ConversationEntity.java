@@ -9,7 +9,7 @@ import androidx.annotation.StringDef;
         ConversationEntity.USER_B,
         ConversationEntity.AUDIO,
         ConversationEntity.SENTENCES,
-        ConversationEntity.IMAGE_LOGO
+        ConversationEntity.LOGO_IMAGE
 })
 
 public @interface ConversationEntity {
@@ -19,5 +19,5 @@ public @interface ConversationEntity {
     String USER_B = "userB";
     String AUDIO = "audio";
     String SENTENCES = "sentences";
-    String IMAGE_LOGO = "imageLogo";
+    String LOGO_IMAGE = "imageLogo";
 }

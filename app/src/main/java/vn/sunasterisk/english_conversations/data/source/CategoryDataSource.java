@@ -5,7 +5,7 @@ import java.util.List;
 public class CategoryDataSource {
 
     public interface OnFetchCategoryListener<T> {
-        void onFetchCategorySuccess(List<T> datas);
+        void onFetchCategorySuccess(List<T> data);
 
         void onFetchCategoryFailure(String message);
     }

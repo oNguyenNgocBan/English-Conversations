@@ -7,4 +7,5 @@ public class Constant {
     public static final String BREAK_LINE = "\n";
     public static final String BASE_URL = "https://english-conversation-160713.web.app/data.json";
     public static final String DATA_JSON_NAME = "data.json";
+    public static final String SLASH = "/";
 }

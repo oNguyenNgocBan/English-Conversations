@@ -6,31 +6,15 @@ public class Conversation {
 
     private String mId;
     private String mTitle;
-    private String mImageLogo;
+    private String mLogoImage;
     private String mAudio;
 
     private User mUserA;
     private User mUserB;
 
-    private List<Sentence> nSentences;
+    private List<Sentence> mSentences;
 
     public Conversation() {
-    }
-
-    public Conversation(String id,
-                        String title,
-                        String imageLogo,
-                        String audio,
-                        User userA,
-                        User userB,
-                        List<Sentence> sentences) {
-        mId = id;
-        mTitle = title;
-        mImageLogo = imageLogo;
-        mAudio = audio;
-        mUserA = userA;
-        mUserB = userB;
-        this.nSentences = sentences;
     }
 
     public String getId() {
@@ -49,12 +33,12 @@ public class Conversation {
         mTitle = title;
     }
 
-    public String getImageLogo() {
-        return mImageLogo;
+    public String getLogoImage() {
+        return mLogoImage;
     }
 
-    public void setImageLogo(String imageLogo) {
-        mImageLogo = imageLogo;
+    public void setLogoImage(String logoImage) {
+        mLogoImage = logoImage;
     }
 
     public String getAudio() {
@@ -82,10 +66,10 @@ public class Conversation {
     }
 
     public List<Sentence> getSentences() {
-        return nSentences;
+        return mSentences;
     }
 
     public void setSentences(List<Sentence> sentences) {
-        this.nSentences = sentences;
+        this.mSentences = sentences;
     }
 }

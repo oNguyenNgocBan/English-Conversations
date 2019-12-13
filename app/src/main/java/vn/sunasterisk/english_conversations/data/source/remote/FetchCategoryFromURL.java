@@ -34,7 +34,7 @@ public class FetchCategoryFromURL extends AsyncTask<String, Void, List<Category>
             String data = getStringDataFromUrl(url);
 
             // Save content to file local
-            StorageManager storageManager = new StorageManager();
+            StorageManager storageManager = StorageManager.getInstance();
             storageManager.writeStringToInternalStorage(data, Constant.DATA_JSON_NAME);
 
             ParseCategoryFromJSON parseCategoryFromJSON = new ParseCategoryFromJSON(data);

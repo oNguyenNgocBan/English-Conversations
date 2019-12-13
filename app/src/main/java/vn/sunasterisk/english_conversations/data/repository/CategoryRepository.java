@@ -1,6 +1,7 @@
 package vn.sunasterisk.english_conversations.data.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
 import vn.sunasterisk.english_conversations.data.source.CategoryDataSource;
@@ -29,7 +30,7 @@ public class CategoryRepository {
     }
 
     public void getCategories(CategoryDataSource.OnFetchCategoryListener listener) {
-        StorageManager storageManager = new StorageManager();
+        StorageManager storageManager = StorageManager.getInstance();
         if (storageManager.isExistFile(Constant.DATA_JSON_NAME)) {
             mFetchLocalDataSource.getCategories(listener);
         } else {

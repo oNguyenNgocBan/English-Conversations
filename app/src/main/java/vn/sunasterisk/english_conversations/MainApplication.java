@@ -2,17 +2,15 @@ package vn.sunasterisk.english_conversations;
 
 import android.app.Application;
 
+import vn.sunasterisk.english_conversations.data.source.local.FetchLocalDataSource;
+import vn.sunasterisk.english_conversations.utils.StorageManager;
+
 public class MainApplication extends Application {
-
-    private static MainApplication sApplication;
-
-    public static MainApplication getInstance() {
-        return sApplication;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        MainApplication.sApplication = this;
+        StorageManager.init(this);
+        FetchLocalDataSource.init(this);
     }
 }

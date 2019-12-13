@@ -8,7 +8,7 @@ import vn.sunasterisk.english_conversations.data.source.CategoryDataSource;
 public class FetchRemoteDataSource implements CategoryDataSource.FetchCategoryDataSource {
     private static FetchRemoteDataSource sInstance;
 
-    public FetchRemoteDataSource() {
+    private FetchRemoteDataSource() {
     }
 
     public static FetchRemoteDataSource getInstance() {

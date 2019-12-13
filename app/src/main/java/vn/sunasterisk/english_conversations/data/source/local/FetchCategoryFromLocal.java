@@ -1,11 +1,13 @@
 package vn.sunasterisk.english_conversations.data.source.local;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONException;
 
 import java.io.IOException;
 
+import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.constant.Constant;
 import vn.sunasterisk.english_conversations.data.source.CategoryDataSource;
 import vn.sunasterisk.english_conversations.utils.ParseCategoryFromJSON;
@@ -19,15 +21,15 @@ public class FetchCategoryFromLocal {
         mListener = listener;
     }
 
-    void fetchCategories() {
-        StorageManager storageManager = new StorageManager();
+    void fetchCategories(Context context) {
+        StorageManager storageManager = StorageManager.getInstance();
         try {
             if (storageManager.isExistFile(Constant.DATA_JSON_NAME)) {
                 String jsonData = storageManager.getStringContentOfFile(Constant.DATA_JSON_NAME);
                 ParseCategoryFromJSON parseCategoryFromJSON = new ParseCategoryFromJSON(jsonData);
                 mListener.onFetchCategorySuccess(parseCategoryFromJSON.getListCategory());
             } else {
-                mListener.onFetchCategoryFailure("Data local not exist");
+                mListener.onFetchCategoryFailure(context.getString(R.string.data_local_not_exist));
             }
         } catch (IOException | JSONException e) {
             mListener.onFetchCategoryFailure(e.getMessage());

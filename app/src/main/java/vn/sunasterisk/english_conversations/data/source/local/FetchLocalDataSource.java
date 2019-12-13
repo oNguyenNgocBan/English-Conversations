@@ -7,14 +7,17 @@ import vn.sunasterisk.english_conversations.data.source.CategoryDataSource;
 public class FetchLocalDataSource implements CategoryDataSource.FetchCategoryDataSource {
 
     private static FetchLocalDataSource sInstance;
+    private Context mContext;
 
-    public FetchLocalDataSource() {
+    private FetchLocalDataSource(Context context) {
+        mContext = context;
+    }
+
+    public static void init(Context context) {
+        sInstance = new FetchLocalDataSource(context);
     }
 
     public static FetchLocalDataSource getInstance() {
-        if (sInstance == null) {
-            sInstance = new FetchLocalDataSource();
-        }
         return sInstance;
     }
 
@@ -23,6 +26,6 @@ public class FetchLocalDataSource implements CategoryDataSource.FetchCategoryDat
     public void getCategories(CategoryDataSource.OnFetchCategoryListener listener) {
         FetchCategoryFromLocal fetchCategoryFromLocal =
                 new FetchCategoryFromLocal(listener);
-        fetchCategoryFromLocal.fetchCategories();
+        fetchCategoryFromLocal.fetchCategories(mContext);
     }
 }
