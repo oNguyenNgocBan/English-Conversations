@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">English-Conversations</string>
     <string name="data_local_not_exist">Data local not exist</string>
+    <string name="chat_and_small_talk"><![CDATA[Chat & Small Talk]]></string>
 </resources>

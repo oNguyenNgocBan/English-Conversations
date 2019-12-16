@@ -20,6 +20,6 @@ public class FetchRemoteDataSource implements CategoryDataSource.FetchCategoryDa
 
     public void getCategories(CategoryDataSource.OnFetchCategoryListener listener) {
         FetchCategoryFromURL fetchCategoryFromURL = new FetchCategoryFromURL(listener);
-        fetchCategoryFromURL.execute(Constant.BASE_URL);
+        fetchCategoryFromURL.execute(Constant.DATA_JSON_URL);
     }
 }

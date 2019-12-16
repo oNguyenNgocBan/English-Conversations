@@ -2,6 +2,8 @@ package vn.sunasterisk.english_conversations.data.model;
 
 import java.util.List;
 
+import vn.sunasterisk.english_conversations.constant.Constant;
+
 public class Conversation {
 
     private String mId;
@@ -15,6 +17,14 @@ public class Conversation {
     private List<Sentence> mSentences;
 
     public Conversation() {
+    }
+
+    private String getCategoryFullUrl() {
+        return Constant.CONVERSATION_URL + mId.toString() + Constant.SLASH;
+    }
+
+    public String getLogoFullUrl() {
+        return getCategoryFullUrl() + mLogoImage;
     }
 
     public String getId() {
