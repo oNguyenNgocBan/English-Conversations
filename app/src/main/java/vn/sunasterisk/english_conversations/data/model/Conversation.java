@@ -2,6 +2,9 @@ package vn.sunasterisk.english_conversations.data.model;
 
 import java.util.List;
 
+import vn.sunasterisk.english_conversations.constant.Constant;
+import vn.sunasterisk.english_conversations.utils.StringUtils;
+
 public class Conversation {
 
     private String mId;
@@ -15,6 +18,10 @@ public class Conversation {
     private List<Sentence> mSentences;
 
     public Conversation() {
+    }
+
+    public String getLogoFullUrl() {
+        return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mLogoImage);
     }
 
     public String getId() {
