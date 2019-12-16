@@ -1,6 +1,7 @@
 package vn.sunasterisk.english_conversations.data.source.remote;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -32,6 +33,8 @@ public class FetchCategoryFromURL extends AsyncTask<String, Void, List<Category>
 
         try {
             String data = getStringDataFromUrl(url);
+
+            Log.d("", "doInBackground: " + url);
 
             // Save content to file local
             StorageManager storageManager = StorageManager.getInstance();

@@ -1,7 +1,6 @@
 package vn.sunasterisk.english_conversations.data.source.local;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONException;
 

@@ -2,7 +2,6 @@ package vn.sunasterisk.english_conversations.screen.category;
 
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +24,7 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
 
     @Override
     protected void initComponents() {
-        mRecyclerView = findViewById(R.id.category_recycler);
+        mRecyclerView = findViewById(R.id.recycler_categories);
 
         mCategoryAdapter = new CategoryAdapter();
         mRecyclerView.setAdapter(mCategoryAdapter);

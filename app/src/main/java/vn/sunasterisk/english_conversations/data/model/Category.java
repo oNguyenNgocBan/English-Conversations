@@ -3,6 +3,7 @@ package vn.sunasterisk.english_conversations.data.model;
 import java.util.List;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
+import vn.sunasterisk.english_conversations.utils.StringUtils;
 
 public class Category {
 
@@ -21,12 +22,8 @@ public class Category {
         mConversations = conversations;
     }
 
-    private String getCategoryFullUrl() {
-        return Constant.CATEGORY_URL + mId.toString() + Constant.SLASH;
-    }
-
     public String getCoverFullUrl() {
-        return getCategoryFullUrl() + mCover;
+        return StringUtils.formatFromBaseURL(Constant.CATEGORY_PATH, mId, mCover);
     }
 
     public String getId() {

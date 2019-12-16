@@ -57,7 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mCoverImageView;
+        private ImageView mImageCover;
         private TextView mTitleTextView;
         private RecyclerView mRecyclerViewConversations;
         private ConversationQuickViewAdapter mConversationAdapter;
@@ -75,7 +75,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         private void initComponents() {
-            mCoverImageView = itemView.findViewById(R.id.image_cover);
+            mImageCover = itemView.findViewById(R.id.image_cover);
             mTitleTextView = itemView.findViewById(R.id.text_title);
             mRecyclerViewConversations = itemView.findViewById(R.id.recycler_conversations);
 
@@ -108,13 +108,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         private void scrollToNextPosition() {
-            if (mRecyclerViewConversations == null) {
-                return;
-            }
-            if (mCategory == null) {
-                return;
-            }
-            if (mCategory.getConversations().size() == 0) {
+            if (mRecyclerViewConversations == null || mCategory == null
+                    || mCategory.getConversations().size() == 0) {
                 return;
             }
             int currentPosition = mLinearLayoutManager.findFirstVisibleItemPosition();
@@ -131,7 +126,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
              Glide.with(itemView.getContext())
                      .load(url)
                      .placeholder(R.drawable.default_image)
-                     .into(mCoverImageView);
+                     .into(mImageCover);
             mTitleTextView.setText(category.getTitle());
             mConversationAdapter.setConversations(category.getConversations());
             mConversationAdapter.notifyDataSetChanged();

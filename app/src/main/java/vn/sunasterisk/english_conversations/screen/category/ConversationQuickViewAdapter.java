@@ -48,12 +48,15 @@ public class ConversationQuickViewAdapter
 
     @Override
     public int getItemCount() {
+        if (mConversations == null) {
+            return 0;
+        }
         return mConversations.size();
     }
 
     protected class ConversationQuickViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImageView;
+        private ImageView mImageConversation;
 
         private ConversationQuickViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,7 +65,7 @@ public class ConversationQuickViewAdapter
         }
 
         private void initComponents() {
-            mImageView = itemView.findViewById(R.id.imageView);
+            mImageConversation = itemView.findViewById(R.id.image_conversation);
         }
 
         private void registerListeners() {
@@ -70,10 +73,11 @@ public class ConversationQuickViewAdapter
         }
 
         private void display(Conversation conversation) {
+            Log.d("xxxx", "display: " + conversation.getLogoFullUrl());
             Glide.with(itemView.getContext())
                     .load(conversation.getLogoFullUrl())
                     .placeholder(R.drawable.default_image)
-                    .into(mImageView);
+                    .into(mImageConversation);
         }
     }
 }

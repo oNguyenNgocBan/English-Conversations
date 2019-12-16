@@ -3,6 +3,7 @@ package vn.sunasterisk.english_conversations.data.model;
 import java.util.List;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
+import vn.sunasterisk.english_conversations.utils.StringUtils;
 
 public class Conversation {
 
@@ -19,12 +20,8 @@ public class Conversation {
     public Conversation() {
     }
 
-    private String getCategoryFullUrl() {
-        return Constant.CONVERSATION_URL + mId.toString() + Constant.SLASH;
-    }
-
     public String getLogoFullUrl() {
-        return getCategoryFullUrl() + mLogoImage;
+        return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mLogoImage);
     }
 
     public String getId() {
