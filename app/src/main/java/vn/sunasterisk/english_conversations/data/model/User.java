@@ -1,6 +1,8 @@
 package vn.sunasterisk.english_conversations.data.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String mName;
     private String mAvatar;
