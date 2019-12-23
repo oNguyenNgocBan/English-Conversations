@@ -51,10 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if (mCategories == null) {
-            return 0;
-        }
-        return mCategories.size();
+        return mCategories == null ? 0 : mCategories.size();
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {

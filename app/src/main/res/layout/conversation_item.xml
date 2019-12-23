@@ -32,9 +32,7 @@
         app:layout_constraintBottom_toTopOf="@+id/text_title_conversation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout">
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
 
     <LinearLayout
         android:id="@+id/linear_layout"

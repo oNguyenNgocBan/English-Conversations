@@ -47,10 +47,7 @@ public class ConversationsAdapter
 
     @Override
     public int getItemCount() {
-        if (mConversations == null) {
-            return 0;
-        }
-        return mConversations.size();
+        return mConversations == null ? 0 : mConversations.size();
     }
 
     protected class ConversationsViewHolder extends RecyclerView.ViewHolder {

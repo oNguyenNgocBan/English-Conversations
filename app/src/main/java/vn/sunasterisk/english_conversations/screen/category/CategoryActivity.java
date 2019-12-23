@@ -61,8 +61,7 @@ public class CategoryActivity extends BaseActivity
 
     @Override
     public void onCategoriesClickListener(Category category) {
-        Intent intent = new Intent(this, ConversationsActivity.class);
-        intent.putExtra(CATEGORY_NAME, category);
+        Intent intent = ConversationsActivity.getConversationIntent(this, category);
         startActivity(intent);
     }
 }

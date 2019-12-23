@@ -1,5 +1,6 @@
 package vn.sunasterisk.english_conversations.screen.conversations;
 
+import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -21,6 +22,12 @@ public class ConversationsActivity extends BaseActivity implements Conversations
     private RecyclerView mRecyclerView;
     private ConversationsAdapter mConversationsAdapter;
     private ConversationsPresenter mConversationsPresenter;
+
+    public static Intent getConversationIntent(Context context, Category category) {
+        Intent intent = new Intent(context, ConversationsActivity.class);
+        intent.putExtra(CategoryActivity.CATEGORY_NAME, category);
+        return intent;
+    }
 
     @Override
     protected int getContentViewId() {
