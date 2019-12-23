@@ -1,6 +1,8 @@
 package vn.sunasterisk.english_conversations.data.model;
 
-public class Sentence {
+import java.io.Serializable;
+
+public class Sentence implements Serializable {
 
     private String mText;
     private String mAudio;

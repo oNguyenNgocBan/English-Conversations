@@ -24,8 +24,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private LayoutInflater mLayoutInflater;
     private List<Category> mCategories;
+    private OnCategoriesClickListener mOnCategoriesClickListener;
 
-    public CategoryAdapter() {
+    public CategoryAdapter(OnCategoriesClickListener onCategoriesClickListener) {
+        mOnCategoriesClickListener = onCategoriesClickListener;
     }
 
     public void setCategories(List<Category> categories) {
@@ -49,10 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if (mCategories == null) {
-            return 0;
-        }
-        return mCategories.size();
+        return mCategories == null ? 0 : mCategories.size();
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +70,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
 
         private void registerListeners() {
-            // TODO handle tap to category item
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnCategoriesClickListener.onCategoriesClickListener(mCategory);
+                }
+            });
         }
 
         private void initComponents() {
@@ -131,5 +135,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             mConversationAdapter.setConversations(category.getConversations());
             mConversationAdapter.notifyDataSetChanged();
         }
+    }
+
+    interface OnCategoriesClickListener {
+        void onCategoriesClickListener(Category category);
     }
 }

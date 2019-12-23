@@ -1,11 +1,12 @@
 package vn.sunasterisk.english_conversations.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
 import vn.sunasterisk.english_conversations.utils.StringUtils;
 
-public class Category {
+public class Category implements Serializable {
 
     private String mId;
     private String mTitle;

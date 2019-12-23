@@ -18,4 +18,8 @@ public class StringUtils {
         return String.format("%s/%s/%s/%s", Constant.BASE_URL, path1, path2, path3);
     }
 
+    public static String formatProgress(int currentStarCount, int totalStarCount) {
+        return String.format("%d/%d", currentStarCount, totalStarCount);
+    }
+
 }
