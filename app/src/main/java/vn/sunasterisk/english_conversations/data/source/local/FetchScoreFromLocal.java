@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
@@ -22,7 +23,7 @@ public class FetchScoreFromLocal {
     }
 
     public void saveScore(Conversation conversation, int sentenceIndex, int score) {
-        ArrayList<Integer> currentScores = listScoresOfConversation(conversation);
+        List<Integer> currentScores = getScoresOfConversation(conversation);
         if (currentScores == null) {
             currentScores = new ArrayList<>();
             // create list score 0
@@ -39,10 +40,9 @@ public class FetchScoreFromLocal {
         SharedPreferences.Editor edit = mPrefs.edit();
         edit.putString(conversation.getId(), str.toString());
         edit.apply();
-        edit.commit();
     }
 
-    private ArrayList<Integer> listScoresOfConversation(Conversation conversation) {
+    private List<Integer> getScoresOfConversation(Conversation conversation) {
         String savedString = mPrefs.getString(conversation.getId(), Constant.EMPTY_STRING);
         if (savedString.equals(Constant.EMPTY_STRING)) {
             return null;
@@ -56,7 +56,7 @@ public class FetchScoreFromLocal {
     }
 
     public int getTotalScoresOfConversation(Conversation conversation) {
-        ArrayList<Integer> scores = listScoresOfConversation(conversation);
+        List<Integer> scores = getScoresOfConversation(conversation);
         if (scores == null) {
             return 0;
         }
@@ -68,7 +68,7 @@ public class FetchScoreFromLocal {
     }
 
     public int getScoresOfSentences(Conversation conversation, int sentenceIndex) {
-        ArrayList<Integer> scores = listScoresOfConversation(conversation);
+        List<Integer> scores = getScoresOfConversation(conversation);
         if (scores == null) {
             return 0;
         }
