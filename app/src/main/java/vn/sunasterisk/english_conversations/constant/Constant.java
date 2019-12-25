@@ -13,4 +13,6 @@ public class Constant {
     public static final String CONVERSATION_PATH = "converstation";
     public static final String DATA_JSON_NAME = "data.json";
     public static final String SLASH = "/";
+    public static final String COMMA = ",";
+    public static final String EMPTY_STRING = "";
 }

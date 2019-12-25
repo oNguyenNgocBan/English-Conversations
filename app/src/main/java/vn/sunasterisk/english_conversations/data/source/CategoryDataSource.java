@@ -2,7 +2,7 @@ package vn.sunasterisk.english_conversations.data.source;
 
 import java.util.List;
 
-public class CategoryDataSource {
+public interface CategoryDataSource {
 
     public interface OnFetchCategoryListener<T> {
         void onFetchCategorySuccess(List<T> data);
