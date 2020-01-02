@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightGray">#CCD1CC</color>
+    <color name="tyrianPurpleDark">#09000000</color>
+    <color name="tyrianPurpleLight">#01000000</color>
 </resources>
