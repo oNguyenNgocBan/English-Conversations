@@ -15,7 +15,7 @@
                     android:bottom="@dimen/px_1"
                     android:left="@dimen/px_1"
                     android:right="@dimen/px_1"/>
-                <solid android:color="@color/tyrianPurpleLight" />
+                <solid android:color="@color/tyrian_purple_light" />
             </shape>
         </rotate>
     </item>
@@ -25,7 +25,7 @@
                 android:bottom="@dimen/px_1"
                 android:left="@dimen/px_1"
                 android:right="@dimen/px_1"/>
-            <solid android:color="@color/tyrianPurpleLight" />
+            <solid android:color="@color/tyrian_purple_light" />
             <corners android:radius="@dimen/dp_8" />
         </shape>
     </item>
@@ -41,7 +41,7 @@
                 <corners android:radius="@dimen/dp_4"/>
                 <padding
                     android:bottom="@dimen/px_1" />
-                <solid android:color="@color/tyrianPurpleDark" />
+                <solid android:color="@color/tyrian_purple_dark" />
             </shape>
         </rotate>
     </item>
@@ -49,7 +49,7 @@
         <shape android:shape="rectangle">
             <padding
                 android:bottom="@dimen/px_1" />
-            <solid android:color="@color/tyrianPurpleDark" />
+            <solid android:color="@color/tyrian_purple_dark" />
             <corners android:radius="@dimen/dp_8" />
         </shape>
     </item>
@@ -68,7 +68,7 @@
                     android:bottom="@dimen/px_1"
                     android:left="@dimen/px_1"
                     android:right="@dimen/px_1"/>
-                <solid android:color="@color/tyrianPurpleLight" />
+                <solid android:color="@color/tyrian_purple_light" />
             </shape>
         </rotate>
     </item>
@@ -78,7 +78,7 @@
                 android:bottom="@dimen/px_1"
                 android:left="@dimen/px_1"
                 android:right="@dimen/px_1"/>
-            <solid android:color="@color/tyrianPurpleLight" />
+            <solid android:color="@color/tyrian_purple_light" />
             <corners android:radius="@dimen/dp_8" />
         </shape>
     </item>
