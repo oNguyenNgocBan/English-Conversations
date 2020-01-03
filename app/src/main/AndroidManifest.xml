@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.main.MainActivity" />
-        <activity android:name=".screen.conversations.ConversationsActivity"/>
+        <activity android:name=".screen.conversations.ConversationsActivity" />
+        <activity android:name=".screen.sentences.SentencesActivity" />
     </application>
 
 </manifest>

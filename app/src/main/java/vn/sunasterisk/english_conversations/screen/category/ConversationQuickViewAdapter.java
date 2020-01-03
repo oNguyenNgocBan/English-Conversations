@@ -73,7 +73,6 @@ public class ConversationQuickViewAdapter
         }
 
         private void display(Conversation conversation) {
-            Log.d("xxxx", "display: " + conversation.getLogoFullUrl());
             Glide.with(itemView.getContext())
                     .load(conversation.getLogoFullUrl())
                     .placeholder(R.drawable.default_image)

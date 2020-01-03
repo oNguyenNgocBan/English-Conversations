@@ -33,9 +33,6 @@ public class FetchCategoryFromURL extends AsyncTask<String, Void, List<Category>
 
         try {
             String data = getStringDataFromUrl(url);
-
-            Log.d("", "doInBackground: " + url);
-
             // Save content to file local
             StorageManager storageManager = StorageManager.getInstance();
             storageManager.writeStringToInternalStorage(data, Constant.DATA_JSON_NAME);

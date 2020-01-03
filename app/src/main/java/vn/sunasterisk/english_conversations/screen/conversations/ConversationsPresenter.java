@@ -24,7 +24,7 @@ public class ConversationsPresenter implements ConversationsContract.Presenter {
             if (context == null) {
                 return;
             }
-            mView.onGetConversationFailure(context.getString(R.string.conversations_empty));
+            mView.onGetConversationFailure(context.getString(R.string.message_conversations_empty));
         }
     }
 }
