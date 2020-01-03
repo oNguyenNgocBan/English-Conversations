@@ -28,7 +28,7 @@ public class FetchCategoryFromLocal {
                 ParseCategoryFromJSON parseCategoryFromJSON = new ParseCategoryFromJSON(jsonData);
                 mListener.onFetchCategorySuccess(parseCategoryFromJSON.getListCategory());
             } else {
-                mListener.onFetchCategoryFailure(context.getString(R.string.data_local_not_exist));
+                mListener.onFetchCategoryFailure(context.getString(R.string.message_data_local_not_exist));
             }
         } catch (IOException | JSONException e) {
             mListener.onFetchCategoryFailure(e.getMessage());

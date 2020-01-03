@@ -20,7 +20,7 @@ import vn.sunasterisk.english_conversations.screen.conversations.ConversationsAc
 public class SentencesActivity extends BaseActivity
         implements SentencesContract.View {
 
-    public static Intent getSentencesIntent(Context context, Conversation conversation) {
+    public static Intent getIntent(Context context, Conversation conversation) {
         Intent intent = new Intent(context, SentencesActivity.class);
         intent.putExtra(ConversationsActivity.CONVERSATION_NAME, conversation);
         return intent;

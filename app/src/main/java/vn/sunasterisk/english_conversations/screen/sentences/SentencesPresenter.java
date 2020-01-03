@@ -1,7 +1,6 @@
 package vn.sunasterisk.english_conversations.screen.sentences;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class SentencesPresenter implements SentencesContract.Presenter {
             if (context == null) {
                 return;
             }
-            mView.onGetSentencesFailure(context.getString(R.string.sentences_empty));
+            mView.onGetSentencesFailure(context.getString(R.string.message_sentences_empty));
         } else {
             mView.onGetSentencesSuccess(sentences);
         }

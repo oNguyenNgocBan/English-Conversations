@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +76,7 @@ public class ConversationsActivity extends BaseActivity implements Conversations
 
     @Override
     public void onConversationClicked(Conversation conversation) {
-        Intent intent = SentencesActivity.getSentencesIntent(this, conversation);
+        Intent intent = SentencesActivity.getIntent(this, conversation);
         startActivity(intent);
     }
 }
