@@ -15,9 +15,12 @@ import vn.sunasterisk.english_conversations.data.model.Category;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.screen.base.BaseActivity;
 import vn.sunasterisk.english_conversations.screen.category.CategoryActivity;
+import vn.sunasterisk.english_conversations.screen.sentences.SentencesActivity;
 import vn.sunasterisk.english_conversations.utils.SpacesItemDecoration;
 
-public class ConversationsActivity extends BaseActivity implements ConversationsContract.View {
+public class ConversationsActivity extends BaseActivity implements ConversationsContract.View, ConversationsAdapter.OnConversationClickListener {
+
+    public static final String CONVERSATION_NAME = "conversation";
 
     private RecyclerView mRecyclerView;
     private ConversationsAdapter mConversationsAdapter;
@@ -45,7 +48,7 @@ public class ConversationsActivity extends BaseActivity implements Conversations
         }
 
         mConversationsPresenter = new ConversationsPresenter(this, category);
-        mConversationsAdapter = new ConversationsAdapter();
+        mConversationsAdapter = new ConversationsAdapter(this);
         mRecyclerView.setAdapter(mConversationsAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -70,5 +73,11 @@ public class ConversationsActivity extends BaseActivity implements Conversations
     @Override
     public void onGetConversationFailure(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConversationClicked(Conversation conversation) {
+        Intent intent = SentencesActivity.getSentencesIntent(this, conversation);
+        startActivity(intent);
     }
 }

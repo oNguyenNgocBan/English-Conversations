@@ -22,8 +22,10 @@ public class ConversationsAdapter
 
     private LayoutInflater mLayoutInflater;
     private List<Conversation> mConversations;
+    private OnConversationClickListener mOnConversationClickListener;
 
-    public ConversationsAdapter() {
+    public ConversationsAdapter(OnConversationClickListener onConversationClickListener) {
+        mOnConversationClickListener = onConversationClickListener;
     }
 
     public void setConversations(List<Conversation> conversations) {
@@ -55,6 +57,7 @@ public class ConversationsAdapter
         private ImageView mImageConversation;
         private TextView mTextProgress;
         private TextView mTextTitleConversation;
+        private Conversation mConversation;
 
         protected ConversationsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,9 +72,16 @@ public class ConversationsAdapter
         }
 
         private void registerListeners() {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnConversationClickListener.onConversationClicked(mConversation);
+                }
+            });
         }
 
         protected void display(Conversation conversation) {
+            mConversation = conversation;
             String url = conversation.getLogoFullUrl();
             Glide.with(itemView.getContext())
                     .load(url)
@@ -83,5 +93,9 @@ public class ConversationsAdapter
             int totalStarCount = conversation.getSentences().size() * 5;
             mTextProgress.setText(StringUtils.formatProgress(0, totalStarCount));
         }
+    }
+
+    interface OnConversationClickListener {
+        void onConversationClicked(Conversation conversation);
     }
 }

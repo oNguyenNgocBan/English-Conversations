@@ -58,8 +58,8 @@ public class ParseCategoryFromJSON {
             User userA = new User(userAName, userAAvatar);
 
             JSONObject objectUserB = jsonObjectConversation.getJSONObject(ConversationEntity.USER_B);
-            String userBName = objectUserA.getString(UserEntity.NAME);
-            String userBAvatar = objectUserA.getString(UserEntity.AVATAR);
+            String userBName = objectUserB.getString(UserEntity.NAME);
+            String userBAvatar = objectUserB.getString(UserEntity.AVATAR);
             User userB = new User(userBName, userBAvatar);
 
             JSONArray sentencesJSON = jsonObjectConversation.getJSONArray(ConversationEntity.SENTENCES);

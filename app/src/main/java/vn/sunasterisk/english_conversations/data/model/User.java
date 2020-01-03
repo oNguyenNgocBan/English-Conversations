@@ -2,6 +2,9 @@ package vn.sunasterisk.english_conversations.data.model;
 
 import java.io.Serializable;
 
+import vn.sunasterisk.english_conversations.constant.Constant;
+import vn.sunasterisk.english_conversations.utils.StringUtils;
+
 public class User implements Serializable {
 
     private String mName;
@@ -13,6 +16,10 @@ public class User implements Serializable {
     public User(String name, String avatar) {
         mName = name;
         mAvatar = avatar;
+    }
+
+    public String getFullAvatarUrl(String conversationId) {
+        return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, conversationId, mAvatar);
     }
 
     public String getName() {
