@@ -58,7 +58,7 @@ public class SentencesAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        SententceViewHolder sententceViewHolder = (SententceViewHolder) holder;
+        SentenceViewHolder sententceViewHolder = (SentenceViewHolder) holder;
         sententceViewHolder.display(mSentences.get(position));
     }
 
@@ -72,7 +72,7 @@ public class SentencesAdapter
         return mSentences == null ? 0 : mSentences.size();
     }
 
-    private class SentenceLeft extends SententceViewHolder {
+    private class SentenceLeft extends SentenceViewHolder {
 
         private SentenceLeft(@NonNull View itemView) {
             super(itemView);
@@ -84,7 +84,7 @@ public class SentencesAdapter
         }
     }
 
-    public class SentenceRight extends SententceViewHolder {
+    public class SentenceRight extends SentenceViewHolder {
 
         private SentenceRight(@NonNull View itemView) {
             super(itemView);
@@ -96,14 +96,14 @@ public class SentencesAdapter
         }
     }
 
-    private abstract class SententceViewHolder extends RecyclerView.ViewHolder {
+    private abstract class SentenceViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mImageUserAvatar;
         private ImageView mImageStar;
         private TextView mTextSentence;
         private ImageView mImageSpeaker;
 
-        private SententceViewHolder(@NonNull View itemView) {
+        private SentenceViewHolder(@NonNull View itemView) {
             super(itemView);
             initComponents();
             registerListeners();
