@@ -19,9 +19,11 @@ import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
 import vn.sunasterisk.english_conversations.screen.base.BaseActivity;
 import vn.sunasterisk.english_conversations.screen.conversations.ConversationsActivity;
+import vn.sunasterisk.english_conversations.utils.AudioDownloader;
 
 public class SentencesActivity extends BaseActivity
-        implements SentencesContract.View, SentencesAdapter.SentenceClickListener {
+        implements SentencesContract.View, SentencesAdapter.SentenceClickListener,
+        AudioDownloader.AudioDownloaderListener {
 
     private static final int REQ_CODE_SPEECH_INPUT = 1;
 
@@ -34,6 +36,8 @@ public class SentencesActivity extends BaseActivity
     private SentencesPresenter mPresenter;
     private RecyclerView mRecyclerView;
     private SentencesAdapter mSentencesAdapter;
+
+    private AudioDownloader mAudioDownloader;
 
     @Override
     protected int getContentViewId() {
@@ -56,6 +60,9 @@ public class SentencesActivity extends BaseActivity
             return;
         }
         setTitle(conversation.getTitle());
+
+        mAudioDownloader = new AudioDownloader(this);
+        mAudioDownloader.execute(conversation);
 
         mSentencesAdapter = new SentencesAdapter(conversation, this);
         mRecyclerView.setAdapter(mSentencesAdapter);
@@ -117,5 +124,15 @@ public class SentencesActivity extends BaseActivity
                 break;
             }
         }
+    }
+
+    @Override
+    public void onDownloadSuccess() {
+        Log.d("---", "onDownloadSuccess: ");
+    }
+
+    @Override
+    public void onDownloadFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

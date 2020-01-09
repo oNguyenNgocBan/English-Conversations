@@ -25,6 +25,14 @@ public class Conversation implements Serializable {
         return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mLogoImage);
     }
 
+    public String getAudioFullUrl() {
+        return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mAudio);
+    }
+
+    public String savedAudioFileName() {
+        return String.format("%s%s%s", Constant.CONVERSATION_PATH, mId, mAudio);
+    }
+
     public String getId() {
         return mId;
     }
