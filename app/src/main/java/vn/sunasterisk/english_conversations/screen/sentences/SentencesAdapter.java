@@ -24,11 +24,12 @@ public class SentencesAdapter
     private LayoutInflater mLayoutInflater;
     private List<Sentence> mSentences;
     private Conversation mConversation;
+    private SentenceClickListener mSentenceClickListener;
 
-    public SentencesAdapter(Conversation conversation) {
+    public SentencesAdapter(Conversation conversation, SentenceClickListener sentenceClickListener) {
         mConversation = conversation;
+        mSentenceClickListener = sentenceClickListener;
     }
-
     public void setSentences(List<Sentence> sentences) {
         mSentences = sentences;
     }
@@ -102,6 +103,7 @@ public class SentencesAdapter
         private ImageView mImageStar;
         private TextView mTextSentence;
         private ImageView mImageSpeaker;
+        private Sentence mSentence;
 
         private SentenceViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,7 +112,19 @@ public class SentencesAdapter
         }
 
         private void registerListeners() {
-            // TODO handle speaker + avatar icon tapped
+            mImageSpeaker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSentenceClickListener.onSpeakSentenceClicked(mSentence);
+                }
+            });
+
+            mImageUserAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSentenceClickListener.onAvatarSentenceClicked(mSentence);
+                }
+            });
         }
 
         private void initComponents() {
@@ -121,6 +135,7 @@ public class SentencesAdapter
         }
 
         void display(Sentence sentence) {
+            mSentence = sentence;
             mTextSentence.setText(sentence.getText());
             String url = getAvatarUrl();
 
@@ -132,5 +147,11 @@ public class SentencesAdapter
         }
 
         protected abstract String getAvatarUrl();
+    }
+
+    interface SentenceClickListener {
+        void onSpeakSentenceClicked(Sentence sentence);
+
+        void onAvatarSentenceClicked(Sentence sentence);
     }
 }
