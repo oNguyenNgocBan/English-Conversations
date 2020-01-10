@@ -1,5 +1,7 @@
 package vn.sunasterisk.english_conversations.screen.sentences;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +25,7 @@ import vn.sunasterisk.english_conversations.screen.conversations.ConversationsAc
 import vn.sunasterisk.english_conversations.utils.AudioDownloader;
 
 public class SentencesActivity extends BaseActivity
-        implements SentencesContract.View, SentencesAdapter.SentenceClickListener,
+        implements SentencesContract.View,
         AudioDownloader.AudioDownloaderListener {
 
     private static final int REQ_CODE_SPEECH_INPUT = 1;
@@ -64,7 +67,7 @@ public class SentencesActivity extends BaseActivity
         mAudioDownloader = new AudioDownloader(this);
         mAudioDownloader.execute(conversation);
 
-        mSentencesAdapter = new SentencesAdapter(conversation, this);
+        mSentencesAdapter = new SentencesAdapter(conversation);
         mRecyclerView.setAdapter(mSentencesAdapter);
 
         mPresenter = new SentencesPresenter(this, conversation);
@@ -84,46 +87,6 @@ public class SentencesActivity extends BaseActivity
     @Override
     public void onGetSentencesFailure(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSpeakSentenceClicked(Sentence sentence) {
-
-    }
-
-    @Override
-    public void onAvatarSentenceClicked(Sentence sentence) {
-        promptSpeechInput();
-    }
-
-    private void promptSpeechInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "ahihi do ngoc");
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-            Toast.makeText(getApplicationContext(),
-                    getString(R.string.message_speech_not_supported),
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    List<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Toast.makeText(this, result.get(0), Toast.LENGTH_SHORT).show();
-                }
-                break;
-            }
-        }
     }
 
     @Override

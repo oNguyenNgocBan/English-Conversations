@@ -2,9 +2,11 @@ package vn.sunasterisk.english_conversations.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,35 +36,42 @@ public class AudioDownloader extends AsyncTask<Conversation, Integer, Void> {
 
     @Override
     protected Void doInBackground(Conversation... conversations) {
-        StorageManager storageManager = StorageManager.getInstance();
         for (Conversation conversation : conversations) {
-            if (!storageManager.isExistFile(conversation.savedAudioFileName())) {
-                String conversationAudioUrlString = conversation.getAudioFullUrl();
-                downloadAudio(conversationAudioUrlString);
-            }
-
+            String conversationAudioUrlString = conversation.getAudioFullUrl();
+            downloadAudio(conversationAudioUrlString);
             List<Sentence> sentences = conversation.getSentences();
             for (Sentence sentence : sentences) {
-                if (!storageManager.isExistFile(sentence.savedAudioFileName(conversation.getId()))) {
-                    String sentenceAudioUrlString = sentence.getAudioFullUrl(conversation.getId());
-                    downloadAudio(sentenceAudioUrlString);
-                }
+                String sentenceAudioUrlString = sentence.getAudioFullUrl(conversation.getId());
+                downloadAudio(sentenceAudioUrlString);
             }
         }
         return null;
     }
 
     private void downloadAudio(String urlString) {
-        InputStream input = null;
-        OutputStream output = null;
-        HttpURLConnection connection = null;
+        String root = Environment.getExternalStorageDirectory().toString();
+        String savedLocation = urlString.replace(
+                Constant.BASE_URL,
+                Constant.EMPTY_STRING);
+        String fileOutput = root + savedLocation;
+        File file = new File(fileOutput);
 
-        FileOutputStream outputStream = null;
+        Log.d("---", "downloadAudio: ----------------------");
+//        Log.d("---", "downloadAudio: urlString " + urlString);
+//        Log.d("---", "downloadAudio: savedLocation " + savedLocation);
+        Log.d("---", "downloadAudio: root " + root);
+        Log.d("---", "downloadAudio: fileOutput " + fileOutput);
+
+        if (file.exists()) {
+            return;
+        }
+
+        InputStream input = null;
+        HttpURLConnection connection = null;
+        OutputStream output = null;
 
         try {
             URL url = new URL(urlString);
-
-            Log.d("---", "downloadAudio: urlString " + urlString);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 
@@ -72,43 +81,29 @@ public class AudioDownloader extends AsyncTask<Conversation, Integer, Void> {
             }
 
             input = connection.getInputStream();
-            String savedLocation = urlString.replace(
-                    Constant.BASE_URL + Constant.SLASH,
-                    Constant.EMPTY_STRING);
-            savedLocation = savedLocation.replace(Constant.SLASH, Constant.EMPTY_STRING);
+            output = new FileOutputStream(fileOutput);
 
-            Log.d("---", "downloadAudio: savedLocation " + savedLocation);
-
-//            output = new FileOutputStream(savedLocation);
-            outputStream = mContext.openFileOutput(savedLocation, Context.MODE_PRIVATE);
-
-            byte data[] = new byte[4096];
+            byte datas[] = new byte[4096];
             int count;
-            while ((count = input.read(data)) != -1) {
+            while ((count = input.read(datas)) != -1) {
                 if (isCancelled()) {
                     input.close();
                     return;
                 }
-//                output.write(data, 0, count);
-                outputStream.write(data);
+                output.write(datas, 0, count);
             }
         } catch (Exception e) {
+            Log.d("---", "downloadAudio: ");
             mException = e;
-            Log.d("---:", "downloadAudio: " + e.getMessage());
-            return;
         } finally {
             try {
-                if (outputStream != null) {
-                    outputStream.close();
-                }
                 if (output != null)
                     output.close();
                 if (input != null)
                     input.close();
-            } catch (IOException ignored) {
-                mException = ignored;
-                Log.d("---:", "downloadAudio: " + ignored.getMessage());
-                return;
+            } catch (IOException e) {
+                Log.d("---", "downloadAudio: ");
+                mException = e;
             }
             if (connection != null)
                 connection.disconnect();
@@ -118,16 +113,11 @@ public class AudioDownloader extends AsyncTask<Conversation, Integer, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
-        Log.d("---", "onPostExecute: ");
-
         if (mAudioDownloaderListener != null) {
             if (mException != null) {
                 mAudioDownloaderListener.onDownloadFailure(mException.getMessage());
-                Log.d("---", "onPostExecute: onDownloadFailure " + mException.getMessage());
             } else {
                 mAudioDownloaderListener.onDownloadSuccess();
-                Log.d("---", "onPostExecute: onDownloadSuccess");
             }
         }
     }

@@ -22,10 +22,6 @@ public class Sentence implements Serializable {
         return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, conversationId, mAudio);
     }
 
-    public String savedAudioFileName(String conversationId) {
-        return String.format("%s%s%s", Constant.CONVERSATION_PATH, conversationId, mAudio);
-    }
-
     public String getText() {
         return mText;
     }

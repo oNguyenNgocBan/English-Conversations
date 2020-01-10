@@ -41,7 +41,6 @@ public class StorageManager {
         if (!isExistFile(fileName)) {
             return null;
         }
-
         FileInputStream fis = mContext.openFileInput(fileName);
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader bufferedReader = new BufferedReader(isr);

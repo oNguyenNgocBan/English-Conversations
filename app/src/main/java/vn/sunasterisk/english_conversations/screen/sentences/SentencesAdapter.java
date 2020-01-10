@@ -17,6 +17,7 @@ import java.util.List;
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
+import vn.sunasterisk.english_conversations.utils.SentenceAudioPlayer;
 
 public class SentencesAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -24,12 +25,11 @@ public class SentencesAdapter
     private LayoutInflater mLayoutInflater;
     private List<Sentence> mSentences;
     private Conversation mConversation;
-    private SentenceClickListener mSentenceClickListener;
 
-    public SentencesAdapter(Conversation conversation, SentenceClickListener sentenceClickListener) {
+    public SentencesAdapter(Conversation conversation) {
         mConversation = conversation;
-        mSentenceClickListener = sentenceClickListener;
     }
+
     public void setSentences(List<Sentence> sentences) {
         mSentences = sentences;
     }
@@ -104,6 +104,7 @@ public class SentencesAdapter
         private TextView mTextSentence;
         private ImageView mImageSpeaker;
         private Sentence mSentence;
+        private SentenceAudioPlayer mAudioPlayer;
 
         private SentenceViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -115,14 +116,7 @@ public class SentencesAdapter
             mImageSpeaker.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mSentenceClickListener.onSpeakSentenceClicked(mSentence);
-                }
-            });
-
-            mImageUserAvatar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mSentenceClickListener.onAvatarSentenceClicked(mSentence);
+                    playAudio();
                 }
             });
         }
@@ -146,12 +140,13 @@ public class SentencesAdapter
             // TODO display score in mImageStar
         }
 
+        private void playAudio() {
+            if (mAudioPlayer == null) {
+                mAudioPlayer = new SentenceAudioPlayer(itemView.getContext(), mSentence, mConversation);
+            }
+            mAudioPlayer.play();
+        }
+
         protected abstract String getAvatarUrl();
-    }
-
-    interface SentenceClickListener {
-        void onSpeakSentenceClicked(Sentence sentence);
-
-        void onAvatarSentenceClicked(Sentence sentence);
     }
 }
