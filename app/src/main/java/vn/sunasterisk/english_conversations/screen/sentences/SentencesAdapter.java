@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.List;
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
+import vn.sunasterisk.english_conversations.utils.SentenceAudioPlayer;
 
 public class SentencesAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -96,12 +98,14 @@ public class SentencesAdapter
         }
     }
 
-    private abstract class SentenceViewHolder extends RecyclerView.ViewHolder {
+    private abstract class SentenceViewHolder extends RecyclerView.ViewHolder implements SentenceAudioPlayer.SentenceAudioPlayerListener {
 
         private ImageView mImageUserAvatar;
         private ImageView mImageStar;
         private TextView mTextSentence;
         private ImageView mImageSpeaker;
+        private Sentence mSentence;
+        private SentenceAudioPlayer mAudioPlayer;
 
         private SentenceViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,7 +114,12 @@ public class SentencesAdapter
         }
 
         private void registerListeners() {
-            // TODO handle speaker + avatar icon tapped
+            mImageSpeaker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    playAudio();
+                }
+            });
         }
 
         private void initComponents() {
@@ -121,6 +130,7 @@ public class SentencesAdapter
         }
 
         void display(Sentence sentence) {
+            mSentence = sentence;
             mTextSentence.setText(sentence.getText());
             String url = getAvatarUrl();
 
@@ -131,6 +141,22 @@ public class SentencesAdapter
             // TODO display score in mImageStar
         }
 
+        private void playAudio() {
+            if (mAudioPlayer == null) {
+                mAudioPlayer = new SentenceAudioPlayer(mSentence, mConversation, this);
+            }
+            mAudioPlayer.play();
+        }
+
         protected abstract String getAvatarUrl();
+
+        @Override
+        public void onSentencePlayCompleted() {
+        }
+
+        @Override
+        public void onSentencePlayFailure(String message) {
+            Toast.makeText(itemView.getContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

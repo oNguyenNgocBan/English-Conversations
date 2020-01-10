@@ -3,6 +3,8 @@ package vn.sunasterisk.english_conversations.screen.sentences;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.sunasterisk.english_conversations.R;
-import vn.sunasterisk.english_conversations.data.model.Category;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
 import vn.sunasterisk.english_conversations.screen.base.BaseActivity;
 import vn.sunasterisk.english_conversations.screen.conversations.ConversationsActivity;
+import vn.sunasterisk.english_conversations.utils.AudioDownloader;
 
 public class SentencesActivity extends BaseActivity
-        implements SentencesContract.View {
+        implements SentencesContract.View,
+        AudioDownloader.AudioDownloaderListener {
 
     public static Intent getIntent(Context context, Conversation conversation) {
         Intent intent = new Intent(context, SentencesActivity.class);
@@ -29,6 +32,7 @@ public class SentencesActivity extends BaseActivity
     private SentencesPresenter mPresenter;
     private RecyclerView mRecyclerView;
     private SentencesAdapter mSentencesAdapter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected int getContentViewId() {
@@ -37,6 +41,7 @@ public class SentencesActivity extends BaseActivity
 
     @Override
     protected void initComponents() {
+        mProgressBar = findViewById(R.id.progress_loading);
         mRecyclerView = findViewById(R.id.recycler_sentences);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
@@ -57,10 +62,23 @@ public class SentencesActivity extends BaseActivity
 
         mPresenter = new SentencesPresenter(this, conversation);
         mPresenter.getSentences();
+        mPresenter.downloadAudio();
+
+        showLoading();
     }
 
     @Override
     protected void registerListeners() {
+    }
+
+    private void showLoading() {
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -71,6 +89,16 @@ public class SentencesActivity extends BaseActivity
 
     @Override
     public void onGetSentencesFailure(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDownloadAudioSuccess() {
+        hideLoading();
+    }
+
+    @Override
+    public void onDownloadAudioFailure(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

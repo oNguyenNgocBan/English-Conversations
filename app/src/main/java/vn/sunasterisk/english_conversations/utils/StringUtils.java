@@ -22,4 +22,7 @@ public class StringUtils {
         return String.format("%d/%d", currentStarCount, totalStarCount);
     }
 
+    public static String getNameFromFileURL(String url) {
+        return url.substring(url.lastIndexOf(Constant.SLASH) + 1, url.lastIndexOf(Constant.DOT));
+    }
 }
