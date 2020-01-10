@@ -7,15 +7,18 @@ import java.util.List;
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
+import vn.sunasterisk.english_conversations.utils.AudioDownloader;
 
-public class SentencesPresenter implements SentencesContract.Presenter {
+public class SentencesPresenter implements SentencesContract.Presenter, AudioDownloader.AudioDownloaderListener {
 
     private SentencesContract.View mView;
     private Conversation mConversation;
+    private AudioDownloader mAudioDownloader;
 
     public SentencesPresenter(SentencesContract.View view, Conversation conversation) {
         mView = view;
         mConversation = conversation;
+        mAudioDownloader = new AudioDownloader(this);
     }
 
     @Override
@@ -30,5 +33,20 @@ public class SentencesPresenter implements SentencesContract.Presenter {
         } else {
             mView.onGetSentencesSuccess(sentences);
         }
+    }
+
+    @Override
+    public void downloadAudio() {
+        mAudioDownloader.execute(mConversation);
+    }
+
+    @Override
+    public void onDownloadAudioSuccess() {
+        mView.onDownloadAudioSuccess();
+    }
+
+    @Override
+    public void onDownloadAudioFailure(String message) {
+        mView.onDownloadAudioFailure(message);
     }
 }

@@ -10,9 +10,15 @@ public interface SentencesContract {
         void onGetSentencesSuccess(List<Sentence> sentences);
 
         void onGetSentencesFailure(String message);
+
+        void onDownloadAudioSuccess();
+
+        void onDownloadAudioFailure(String message);
     }
 
     public interface Presenter {
         void getSentences();
+
+        void downloadAudio();
     }
 }

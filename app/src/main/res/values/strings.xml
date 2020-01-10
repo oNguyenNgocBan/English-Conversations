@@ -3,4 +3,7 @@
     <string name="message_data_local_not_exist">Data local not exist</string>
     <string name="message_conversations_empty">Conversations empty</string>
     <string name="message_sentences_empty">Sentences empty</string>
+    <string name="message_speech_not_supported">Your device does not support this function</string>
+    <string name="message_invalid_url">Invalid URL</string>
+    <string name="message_download_cancelled">Download cancelled</string>
 </resources>
