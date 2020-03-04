@@ -5,7 +5,7 @@ import java.util.List;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
 
-public class StringCompare {
+public class MarkScoreUtils {
 
     public static final int getScore(String correctAnswer, String userSpeech) {
         String formattedTextUserSpeech = StringUtils.removePunctuation(userSpeech).toLowerCase();
@@ -16,8 +16,7 @@ public class StringCompare {
         List<String> textCorrectWords =
                 Arrays.asList(StringUtils.splitBySpace(formattedTextCorrect));
 
-        int score = Constant.MAX_SCORE;
-
+        int score;
         if (formattedTextUserSpeech.equals(formattedTextCorrect)) {
             score = Constant.MAX_SCORE;
         } else {
