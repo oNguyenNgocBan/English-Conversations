@@ -6,4 +6,7 @@
     <color name="light_gray">#CCD1CC</color>
     <color name="tyrian_purple_dark">#09000000</color>
     <color name="tyrian_purple_light">#01000000</color>
+    <color name="color_very_good">#7bb338</color>
+    <color name="color_good">#4993ec</color>
+    <color name="color_bad">#e15242</color>
 </resources>

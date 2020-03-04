@@ -6,4 +6,10 @@
     <string name="message_speech_not_supported">Your device does not support this function</string>
     <string name="message_invalid_url">Invalid URL</string>
     <string name="message_download_cancelled">Download cancelled</string>
+    <string name="message_let_say">"Let say:\n"</string>
+    <string name="message_does_not_recognize_voice">Does recognize your voice, please try again.</string>
+    <string name="title_very_good">Very Good!</string>
+    <string name="title_good">Good!</string>
+    <string name="title_bad">Bad!</string>
+    <string name="title_button_ok">OK</string>
 </resources>
