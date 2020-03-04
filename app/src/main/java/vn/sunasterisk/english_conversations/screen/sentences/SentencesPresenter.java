@@ -7,7 +7,9 @@ import java.util.List;
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
+import vn.sunasterisk.english_conversations.data.repository.ScoreRepository;
 import vn.sunasterisk.english_conversations.utils.AudioDownloader;
+import vn.sunasterisk.english_conversations.utils.MarkScoreUtils;
 
 public class SentencesPresenter implements SentencesContract.Presenter, AudioDownloader.AudioDownloaderListener {
 
@@ -38,6 +40,15 @@ public class SentencesPresenter implements SentencesContract.Presenter, AudioDow
     @Override
     public void downloadAudio() {
         mAudioDownloader.execute(mConversation);
+    }
+
+    @Override
+    public int markScoreForSentence(String textSpeechOfUser, Sentence sentence) {
+        int matchScore = MarkScoreUtils.getScore(sentence.getText(), textSpeechOfUser);
+        int sentenceIndex = mConversation.getSentences().indexOf(sentence);
+        ScoreRepository scoreRepository = ScoreRepository.getInstance();
+        scoreRepository.saveScoreOfSentence(mConversation, sentenceIndex, matchScore);
+        return matchScore;
     }
 
     @Override

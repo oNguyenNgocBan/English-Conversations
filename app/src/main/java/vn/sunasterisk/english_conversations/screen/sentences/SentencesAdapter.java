@@ -18,6 +18,7 @@ import java.util.List;
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
 import vn.sunasterisk.english_conversations.data.model.Sentence;
+import vn.sunasterisk.english_conversations.data.repository.ScoreRepository;
 import vn.sunasterisk.english_conversations.utils.SentenceAudioPlayer;
 
 public class SentencesAdapter
@@ -26,9 +27,13 @@ public class SentencesAdapter
     private LayoutInflater mLayoutInflater;
     private List<Sentence> mSentences;
     private Conversation mConversation;
+    private SentenceClickListener mSentenceClickListener;
+    private ScoreRepository mScoreRepository;
 
-    public SentencesAdapter(Conversation conversation) {
+    public SentencesAdapter(Conversation conversation, SentenceClickListener sentenceClickListener) {
         mConversation = conversation;
+        mSentenceClickListener = sentenceClickListener;
+        mScoreRepository = ScoreRepository.getInstance();
     }
 
     public void setSentences(List<Sentence> sentences) {
@@ -120,6 +125,12 @@ public class SentencesAdapter
                     playAudio();
                 }
             });
+            mImageUserAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSentenceClickListener.onAvatarClicked(mSentence);
+                }
+            });
         }
 
         private void initComponents() {
@@ -136,9 +147,24 @@ public class SentencesAdapter
 
             Glide.with(itemView.getContext())
                     .load(url).transform(new CircleCrop())
-                    //.apply(RequestOptions.circleCropTransform())
                     .into(mImageUserAvatar);
-            // TODO display score in mImageStar
+
+            int score = mScoreRepository.getScoresOfSentences(mConversation, getLayoutPosition());
+            int starResourceId;
+            if (score == 0) {
+                starResourceId = R.drawable.star_0;
+            } else if (score < 30) {
+                starResourceId = R.drawable.star_1;
+            } else if (score < 45) {
+                starResourceId = R.drawable.star_2;
+            } else if (score < 60) {
+                starResourceId = R.drawable.star_3;
+            } else if (score < 80) {
+                starResourceId = R.drawable.star_4;
+            } else {
+                starResourceId = R.drawable.star_5;
+            }
+            mImageStar.setImageResource(starResourceId);
         }
 
         private void playAudio() {
@@ -158,5 +184,9 @@ public class SentencesAdapter
         public void onSentencePlayFailure(String message) {
             Toast.makeText(itemView.getContext(), message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    interface SentenceClickListener {
+        void onAvatarClicked(Sentence sentence);
     }
 }

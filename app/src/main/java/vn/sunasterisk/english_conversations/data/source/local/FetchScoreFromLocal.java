@@ -2,8 +2,10 @@ package vn.sunasterisk.english_conversations.data.source.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -35,7 +37,11 @@ public class FetchScoreFromLocal {
 
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < currentScores.size(); i++) {
-            str.append(currentScores.get(i).toString() + Constant.COMMA);
+            if (i == 0) {
+                str.append(currentScores.get(i).toString());
+            } else {
+                str.append(Constant.COMMA + currentScores.get(i).toString());
+            }
         }
         SharedPreferences.Editor edit = mPrefs.edit();
         edit.putString(conversation.getId(), str.toString());
@@ -47,10 +53,10 @@ public class FetchScoreFromLocal {
         if (savedString.equals(Constant.EMPTY_STRING)) {
             return null;
         }
-        StringTokenizer st = new StringTokenizer(savedString, Constant.COMMA);
-        ArrayList<Integer> savedScores = new ArrayList<>();
-        for (int i = 0; i < st.countTokens(); i++) {
-            savedScores.add(Integer.parseInt(st.nextToken()));
+        List<String> scoresString = Arrays.asList(savedString.split(Constant.COMMA));
+        List<Integer> savedScores = new ArrayList<>();
+        for (String score : scoresString) {
+            savedScores.add(Integer.parseInt(score));
         }
         return savedScores;
     }
@@ -70,6 +76,9 @@ public class FetchScoreFromLocal {
     public int getScoresOfSentences(Conversation conversation, int sentenceIndex) {
         List<Integer> scores = getScoresOfConversation(conversation);
         if (scores == null) {
+            return 0;
+        }
+        if (sentenceIndex >= scores.size()) {
             return 0;
         }
         return scores.get(sentenceIndex) == null ? 0 : scores.get(sentenceIndex);
