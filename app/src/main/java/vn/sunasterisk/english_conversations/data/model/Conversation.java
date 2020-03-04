@@ -1,5 +1,8 @@
 package vn.sunasterisk.english_conversations.data.model;
 
+import android.os.Environment;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,6 +30,24 @@ public class Conversation implements Serializable {
 
     public String getAudioFullUrl() {
         return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mAudio);
+    }
+
+    public String getPlayAudioURL() {
+        String audioUrl;
+
+        String root = Environment.getExternalStorageDirectory().toString();
+        String savedLocation = getAudioFullUrl().replace(
+                Constant.BASE_URL,
+                Constant.EMPTY_STRING);
+        String savedAudioUrl = root + savedLocation;
+        File savedFile = new File(savedAudioUrl);
+
+        if (savedFile.exists()) {
+            audioUrl = savedAudioUrl;
+        } else {
+            audioUrl = getAudioFullUrl();
+        }
+        return audioUrl;
     }
 
     public String getId() {
