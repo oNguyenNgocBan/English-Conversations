@@ -1,5 +1,7 @@
 package vn.sunasterisk.english_conversations.utils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import vn.sunasterisk.english_conversations.constant.Constant;
@@ -24,5 +26,13 @@ public class StringUtils {
 
     public static String getNameFromFileURL(String url) {
         return url.substring(url.lastIndexOf(Constant.SLASH) + 1, url.lastIndexOf(Constant.DOT));
+    }
+
+    public static String removePunctuation(String input) {
+        return input.replaceAll("[^a-zA-Z ]", Constant.EMPTY_STRING);
+    }
+
+    public static String[] splitBySpace(String input) {
+        return input.split("\\s+");
     }
 }

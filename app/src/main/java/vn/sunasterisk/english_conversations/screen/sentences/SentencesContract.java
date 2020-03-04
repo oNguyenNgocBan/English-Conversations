@@ -20,5 +20,7 @@ public interface SentencesContract {
         void getSentences();
 
         void downloadAudio();
+
+        int markScoreForSentence(String textSpeechOfUser, Sentence sentence);
     }
 }
