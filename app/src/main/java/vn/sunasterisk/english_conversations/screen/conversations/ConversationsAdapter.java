@@ -89,9 +89,9 @@ public class ConversationsAdapter
                     .into(mImageConversation);
             mTextTitleConversation.setText(conversation.getTitle());
 
-            // TODO update progress
+            int currentStarCount = conversation.getCurrentStar();
             int totalStarCount = conversation.getSentences().size() * 5;
-            mTextProgress.setText(StringUtils.formatProgress(0, totalStarCount));
+            mTextProgress.setText(StringUtils.formatProgress(currentStarCount, totalStarCount));
         }
     }
 

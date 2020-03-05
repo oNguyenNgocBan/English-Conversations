@@ -24,6 +24,15 @@ public class Conversation implements Serializable {
     public Conversation() {
     }
 
+    public int getCurrentStar() {
+        int total = 0;
+        for (Sentence sentence : mSentences) {
+            int star = sentence.getStar(this);
+            total += star;
+        }
+        return total;
+    }
+
     public String getLogoFullUrl() {
         return StringUtils.formatFromBaseURL(Constant.CONVERSATION_PATH, mId, mLogoImage);
     }

@@ -29,6 +29,25 @@ public class Sentence implements Serializable {
         return scoreRepository.getScoresOfSentences(conversation, sentenceIndex);
     }
 
+    public int getStar(Conversation conversation) {
+        int star;
+        int score = getScrore(conversation);
+        if (score == 0) {
+            star = 0;
+        } else if (score < 30) {
+            star = 1;
+        } else if (score < 45) {
+            star = 2;
+        } else if (score < 60) {
+            star = 3;
+        } else if (score < 90) {
+            star = 4;
+        } else {
+            star = 5;
+        }
+        return star;
+    }
+
     public String getText() {
         return mText;
     }

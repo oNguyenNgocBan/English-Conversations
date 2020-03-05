@@ -159,7 +159,7 @@ public class SentencesAdapter
                 starResourceId = R.drawable.star_2;
             } else if (score < 60) {
                 starResourceId = R.drawable.star_3;
-            } else if (score < 80) {
+            } else if (score < 90) {
                 starResourceId = R.drawable.star_4;
             } else {
                 starResourceId = R.drawable.star_5;
