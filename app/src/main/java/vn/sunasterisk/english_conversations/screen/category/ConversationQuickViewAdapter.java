@@ -1,5 +1,6 @@
 package vn.sunasterisk.english_conversations.screen.category;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import vn.sunasterisk.english_conversations.R;
 import vn.sunasterisk.english_conversations.data.model.Conversation;
+import vn.sunasterisk.english_conversations.screen.sentences.SentencesActivity;
 
 public class ConversationQuickViewAdapter
         extends RecyclerView.Adapter<ConversationQuickViewAdapter.ConversationQuickViewHolder> {
@@ -69,7 +71,14 @@ public class ConversationQuickViewAdapter
         }
 
         private void registerListeners() {
-            // TODO handle click conversation item
+            mImageConversation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Conversation conversation = mConversations.get(getLayoutPosition());
+                    Intent intent = SentencesActivity.getIntent(view.getContext(), conversation);
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
 
         private void display(Conversation conversation) {
